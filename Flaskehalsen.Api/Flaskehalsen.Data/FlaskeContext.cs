@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Flaskehalsen.Data;
 
-public class FlaskeContext : DbContext
+public partial class FlaskeContext : DbContext
 {
     public DbSet<Club> Clubs { get; set; }
     public DbSet<Person> Persons { get; set; }
