@@ -1,6 +1,7 @@
 using Flaskehalsen.Service.Models;
 using MediatR;
 using Flaskehalsen.Data;
+using Flaskehalsen.Data.Entity;
 
 namespace Flaskehalsen.Service.Domain.Persons;
 
