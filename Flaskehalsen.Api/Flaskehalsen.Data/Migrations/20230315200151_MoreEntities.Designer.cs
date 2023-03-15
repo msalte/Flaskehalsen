@@ -4,6 +4,7 @@ using Flaskehalsen.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flaskehalsen.Data.Migrations
 {
     [DbContext(typeof(FlaskeContext))]
-    partial class FlaskeContextModelSnapshot : ModelSnapshot
+    [Migration("20230315200151_MoreEntities")]
+    partial class MoreEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,6 +164,9 @@ namespace Flaskehalsen.Data.Migrations
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ScaleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("ScoreScaleIndex")
                         .HasColumnType("int");
 
@@ -174,6 +180,8 @@ namespace Flaskehalsen.Data.Migrations
                     b.HasIndex("GetTogetherId");
 
                     b.HasIndex("PersonId");
+
+                    b.HasIndex("ScaleId");
 
                     b.ToTable("FlaskScore");
                 });
@@ -365,11 +373,19 @@ namespace Flaskehalsen.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Flaskehalsen.Data.Entity.Scale", "Scale")
+                        .WithMany()
+                        .HasForeignKey("ScaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Flask");
 
                     b.Navigation("GetTogether");
 
                     b.Navigation("Person");
+
+                    b.Navigation("Scale");
                 });
 
             modelBuilder.Entity("Flaskehalsen.Data.Entity.GetTogether", b =>
