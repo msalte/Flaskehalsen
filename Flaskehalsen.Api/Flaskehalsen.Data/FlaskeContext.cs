@@ -7,7 +7,7 @@ public partial class FlaskeContext : DbContext
 {
     public DbSet<Club> Clubs { get; set; }
     public DbSet<Person> Persons { get; set; }
-    public DbSet<ClubMembership> ClubPersonRels { get; set; }
+    public DbSet<ClubMembership> ClubMemberships { get; set; }
     public DbSet<GetTogether> GetTogethers { get; set; }
 
     public FlaskeContext(DbContextOptions<FlaskeContext> options) : base(options)

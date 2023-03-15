@@ -1,6 +1,8 @@
-using Flaskehalsen.Service.Models;
 using MediatR;
 using Flaskehalsen.Data;
+using Flaskehalsen.Service.Dto;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flaskehalsen.Service.Domain.Persons;
 
@@ -19,10 +21,7 @@ public class GetPersonsRequestHandler : IRequestHandler<GetPersonsRequest, IQuer
 
     public Task<IQueryable<PersonRead>> Handle(GetPersonsRequest request, CancellationToken cancellationToken)
     {
-        return Task.Run(() => _context.Persons.Select(p => new PersonRead()
-        {
-            Id = p.Id,
-            Name = p.DisplayName
-        }), cancellationToken);
+        return Task.Run(() => _context.Persons.Include(p => p.Clubs).AsNoTracking().ProjectToType<PersonRead>(),
+            cancellationToken);
     }
 }

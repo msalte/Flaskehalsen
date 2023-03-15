@@ -4,6 +4,7 @@ using Flaskehalsen.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flaskehalsen.Data.Migrations
 {
     [DbContext(typeof(FlaskeContext))]
-    partial class FlaskeContextModelSnapshot : ModelSnapshot
+    [Migration("20230315190605_ClubMembershipsTable")]
+    partial class ClubMembershipsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

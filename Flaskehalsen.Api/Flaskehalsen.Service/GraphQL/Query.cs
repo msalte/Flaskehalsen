@@ -1,6 +1,6 @@
 using Flaskehalsen.Service.Domain.Clubs;
 using Flaskehalsen.Service.Domain.Persons;
-using Flaskehalsen.Service.Models;
+using Flaskehalsen.Service.Dto;
 using MediatR;
 
 namespace Flaskehalsen.Service.GraphQL;

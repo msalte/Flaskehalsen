@@ -1,5 +1,6 @@
 using Flaskehalsen.Data;
-using Flaskehalsen.Service.Models;
+using Flaskehalsen.Service.Dto;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +29,7 @@ public class UpdatePersonRequestHandler : IRequestHandler<UpdatePersonRequest, P
 
     public async Task<PersonRead> Handle(UpdatePersonRequest request, CancellationToken cancellationToken)
     {
-        var person = await _context.Persons.SingleOrDefaultAsync(p => p.Id == request.PersonId, cancellationToken);
+        var person = await _context.Persons.Include(p => p.Clubs).SingleOrDefaultAsync(p => p.Id == request.PersonId, cancellationToken);
 
         if (person == null)
         {
@@ -39,10 +40,6 @@ public class UpdatePersonRequestHandler : IRequestHandler<UpdatePersonRequest, P
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new PersonRead
-        {
-            Id = person.Id,
-            Name = person.DisplayName
-        };
+        return person.Adapt<PersonRead>();
     }
 }

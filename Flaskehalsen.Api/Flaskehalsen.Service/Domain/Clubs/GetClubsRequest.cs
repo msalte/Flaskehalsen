@@ -1,6 +1,7 @@
-using Flaskehalsen.Service.Models;
 using MediatR;
 using Flaskehalsen.Data;
+using Flaskehalsen.Service.Dto;
+using Mapster;
 
 namespace Flaskehalsen.Service.Domain.Clubs;
 
@@ -19,10 +20,6 @@ public class GetClubsRequestHandler : IRequestHandler<GetClubsRequest, IQueryabl
 
     public Task<IQueryable<ClubRead>> Handle(GetClubsRequest request, CancellationToken cancellationToken)
     {
-        return Task.Run(() => _context.Clubs.Select(c => new ClubRead()
-        {
-            Id = c.Id,
-            Name = c.Name
-        }), cancellationToken);
+        return Task.Run(() => _context.Clubs.ProjectToType<ClubRead>(), cancellationToken);
     }
 }

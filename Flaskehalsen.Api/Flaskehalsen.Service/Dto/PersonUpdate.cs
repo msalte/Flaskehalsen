@@ -1,4 +1,4 @@
-namespace Flaskehalsen.Service.Models;
+namespace Flaskehalsen.Service.Dto;
 
 public class PersonUpdate
 {

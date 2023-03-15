@@ -1,6 +1,7 @@
 using Flaskehalsen.Data;
 using Flaskehalsen.Data.Entity;
-using Flaskehalsen.Service.Models;
+using Flaskehalsen.Service.Dto;
+using Mapster;
 using MediatR;
 
 namespace Flaskehalsen.Service.Domain.Clubs;
@@ -33,10 +34,6 @@ public class CreateClubRequestHandler : IRequestHandler<CreateClubRequest, ClubR
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ClubRead
-        {
-            Id = e.Entity.Id,
-            Name = e.Entity.Name
-        };
+        return e.Entity.Adapt<ClubRead>();
     }
 }

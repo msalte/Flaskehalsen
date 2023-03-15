@@ -1,7 +1,8 @@
-using Flaskehalsen.Service.Models;
 using MediatR;
 using Flaskehalsen.Data;
 using Flaskehalsen.Data.Entity;
+using Flaskehalsen.Service.Dto;
+using Mapster;
 
 namespace Flaskehalsen.Service.Domain.Persons;
 
@@ -34,10 +35,6 @@ public class CreatePersonRequestHandler : IRequestHandler<CreatePersonRequest, P
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new PersonRead
-        {
-            Id = e.Entity.Id,
-            Name = e.Entity.DisplayName
-        };
+        return e.Adapt<PersonRead>();
     }
 }
